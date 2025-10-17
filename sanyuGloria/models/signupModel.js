@@ -1,35 +1,59 @@
-const mongoose = require("mongoose");
-const passportLocalMongoose = require("passport-local-mongoose");
+const mongoose = require('mongoose');
+const passportLocalMongoose = require('passport-local-mongoose');
 
 const signupSchema = new mongoose.Schema({
   fullName: {
     type: String,
-    required: true
+    required: [true, 'Full name is required'],
+    trim: true,
+    minlength: [3, 'Full name must be at least 3 characters'],
+    maxlength: [50, 'Full name must not exceed 50 characters'],
+    match: [/^[a-zA-Z\s]+$/, 'Full name should only contain letters and spaces']
   },
   email: {
     type: String,
-    required: true, 
-    unique: true, 
-    trim: true 
+    required: [true, 'Email is required'],
+    unique: true,
+    lowercase: true,
+    trim: true,
+    match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Please enter a valid email address']
   },
-  phoneNumber: { 
-    type: Number, 
-    required: true 
-  },
-   password: {
+  phone: {
     type: String,
-    required: true
+    required: [true, 'Phone number is required'],
+    unique: true,
+    trim: true,
+    validate: {
+      validator: function(v) {
+        const digitsOnly = v.replace(/[^0-9]/g, '');
+        return digitsOnly.length >= 10 && digitsOnly.length <= 15;
+      },
+      message: 'Phone number must be between 10 and 15 digits'
+    }
   },
-  confirmPassword: {
-    type: String,
-    required: true, 
-    unique: true, 
-    trim: true 
-  },
+  createdAt: {
+    type: Date,
+    default: Date.now
+  }
+}, {
+  timestamps: true
 });
 
-// Use Passport plugin
-signupSchema.plugin(passportLocalMongoose, { usernameField: "emailAddress" });
+// Indexes for better query performance
+signupSchema.index({ email: 1 });
+signupSchema.index({ phone: 1 });
 
-const signupModel = mongoose.models.signupModel || mongoose.model("signupModel", userSchema);
-module.exports = signupModel;
+// Plugin for passport authentication
+signupSchema.plugin(passportLocalMongoose, {
+  usernameField: 'email',
+  usernameLowerCase: true,
+  errorMessages: {
+    UserExistsError: 'A user with this email already exists',
+    IncorrectPasswordError: 'Password is incorrect',
+    IncorrectUsernameError: 'Email is not registered',
+    MissingUsernameError: 'Email is required',
+    MissingPasswordError: 'Password is required'
+  }
+});
+
+module.exports = mongoose.model('User', signupSchema);

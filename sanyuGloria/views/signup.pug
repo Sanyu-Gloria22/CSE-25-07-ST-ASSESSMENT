@@ -1,0 +1,28 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Signup
+  link(rel='stylesheet' href='/css/sign.css')
+.container
+  .form-container
+    #signupSuccess.success-message.hidden
+      | Account created successfully! &ndash; 
+      a(href='/login') Login
+      button#closeSuccess.close-btn 
+    h1 Signup
+    .input-group
+      input#fullName(type='text' placeholder='Full Name')
+    .input-group
+      input#email(type='email' placeholder='Email')
+    .input-group
+      input#phone(type='tel' placeholder='Phone Number')
+    .input-group
+      input#password(type='password' placeholder='Password')
+    .input-group
+      input#confirmPassword(type='password' placeholder='Confirm Password')
+    button#signupBtn.btn Signup
+    p.link-text
+      | Have an account? - 
+      a(href='/login') Login
+script(src='/scripts/sign.js')
