@@ -63,12 +63,6 @@ passport.deserializeUser(UserModel.deserializeUser());
 
 //Routes
 app.use("/",authRoutes);
-app.use("/",managerRoutes);
-app.use("/",salesRoutes);
-app.use("/",stockRoutes);
-app.use("/",supplierRoutes);
-app.use("/",userformRoutes);
-
 
 
 app.use((req, res) => {

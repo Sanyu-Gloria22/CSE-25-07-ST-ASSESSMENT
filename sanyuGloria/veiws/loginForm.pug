@@ -1,0 +1,14 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Login
+  link(rel='stylesheet' href='/public/css/login.css')
+form(action='/login' method='POST')
+  h2 Login
+  input#phone(type='text' name='phone' placeholder='Email or Phone Number' required='')
+  input#password(type='password' name='password' placeholder='Password' required='')
+  button(type='submit') LOGIN
+  p.signup-link
+    | Don&rsquo;t have an account? 
+    a(href='/signup') Signup
