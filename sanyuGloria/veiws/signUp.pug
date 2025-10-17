@@ -1,0 +1,140 @@
+//- doctype html
+//- head
+//-   meta(charset='UTF-8')
+//-   meta(name='viewport' content='width=device-width, initial-scale=1.0')
+//-   title Login
+//-   link(rel='stylesheet' href='/public/css/login.css')
+//- form(action='/login' method='POST')
+//-   h2 Login
+//-   input#fullName(type='text' name='fullName' placeholder='Full Name' required='')
+//-   input#email(type='text' name='email' placeholder='Email' required='')
+//-   input#phoneNumber(type='text' name='phoneNumber' placeholder='Phone Number' required='')
+//-   input#password(type='text' name='password' placeholder='Password' required='')
+//-   input#confirmPassword(type='text' name='confirmPassword' placeholder='Confirm Password' required='')
+//-   button(type='submit') LOGIN
+//-   p.signup-link
+//-     | Don&rsquo;t have an account? 
+//-     a(href='/signup') Signup
+
+
+
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    title Signup
+    link(rel='stylesheet' href='/public/css/login.css')
+  body
+    form(action='/signup' method='POST' id='signupForm' onsubmit='return validateForm()')
+      h2 Signup
+      
+      .input-group
+        input#fullName(type='text' name='fullName' placeholder='Full Name' required='')
+        .error-message(id='fullNameError') Please enter your full name
+      
+      .input-group
+        input#email(type='text' name='email' placeholder='Email' required='')
+        .error-message(id='emailError') Please enter a valid email address
+      
+      .input-group
+        input#phoneNumber(type='number' name='phoneNumber' placeholder='Phone Number' required='')
+        .error-message(id='phoneNumberError') Please enter a valid phone number
+      
+      .input-group
+        input#password(type='password' name='password' placeholder='Password' required='')
+        .error-message(id='passwordError') Please enter a password
+      
+      .input-group
+        input#confirmPassword(type='password' name='confirmPassword' placeholder='Confirm Password' required='')
+        .error-message(id='confirmPasswordError') Passwords do not match
+      
+      button(type='submit') SIGNUP
+      
+      p.signup-link
+        | Don't have an account? 
+        a(href='/signup') Signup
+
+    script.
+      function validateForm() {
+        let isValid = true;
+        
+        // Reset previous errors
+        const errorMessages = document.querySelectorAll('.error-message');
+        const inputs = document.querySelectorAll('input');
+        errorMessages.forEach(msg => msg.style.display = 'none');
+        inputs.forEach(input => input.classList.remove('input-error'));
+        
+        // Get form values
+        const fullName = document.getElementById('fullName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phoneNumber = document.getElementById('phoneNumber').value.trim();
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        
+        // Validate Full Name
+        if (!fullName) {
+          showError('fullNameError', 'fullName');
+          isValid = false;
+        }
+        
+        // Validate Email
+        if (!email) {
+          showError('emailError', 'email');
+          isValid = false;
+        } else if (!isValidEmail(email)) {
+          document.getElementById('emailError').textContent = 'Please enter a valid email address';
+          showError('emailError', 'email');
+          isValid = false;
+        }
+        
+        // Validate Phone Number
+        if (!phoneNumber) {
+          showError('phoneNumberError', 'phoneNumber');
+          isValid = false;
+        }
+        
+        // Validate Password
+        if (!password) {
+          showError('passwordError', 'password');
+          isValid = false;
+        } else if (password.length < 6) {
+          document.getElementById('passwordError').textContent = 'Password must be at least 6 characters long';
+          showError('passwordError', 'password');
+          isValid = false;
+        }
+        
+        // Validate Confirm Password
+        if (!confirmPassword) {
+          showError('confirmPasswordError', 'confirmPassword');
+          isValid = false;
+        } else if (password !== confirmPassword) {
+          document.getElementById('confirmPasswordError').textContent = 'Passwords do not match';
+          showError('confirmPasswordError', 'confirmPassword');
+          isValid = false;
+        }
+        
+        return isValid;
+      }
+      
+      function showError(errorId, inputId) {
+        document.getElementById(errorId).style.display = 'block';
+        document.getElementById(inputId).classList.add('input-error');
+      }
+      
+      function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      }
+      
+      // Real-time validation as user types
+      document.addEventListener('DOMContentLoaded', function() {
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+          input.addEventListener('input', function() {
+            this.classList.remove('input-error');
+            const errorId = this.id + 'Error';
+            document.getElementById(errorId).style.display = 'none';
+          });
+        });
+      });

@@ -8,6 +8,7 @@ const MongoStore = require('connect-mongo');
 const methodOverride = require("method-override");
 
 require("dotenv").config();
+const loginModel = require ("./models/loginModel")
 
 
 //import routes
@@ -56,9 +57,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //authenticate with passport local strategy
-passport.use(UserModel.createStrategy({ usernameField: "emailAddress" }));
-passport.serializeUser(UserModel.serializeUser());
-passport.deserializeUser(UserModel.deserializeUser());
+passport.use(loginModel.createStrategy({ usernameField: "emailAddress" }));
+passport.serializeUser(loginModel.serializeUser());
+passport.deserializeUser(loginModel.deserializeUser());
 
 
 //Routes

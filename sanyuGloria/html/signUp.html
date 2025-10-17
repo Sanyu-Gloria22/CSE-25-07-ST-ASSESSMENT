@@ -3,22 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
+  <title>Signup</title>
   <link rel="stylesheet" href="/public/css/login.css">
 </head>
 <body>
-
-    
-    <form action="/login" method="POST">
-       <h2>Login</h2>
-      <input type="text" name="fullName" id="fullName" placeholder="Full Name" required>
-      <input type="text" name="email" id="email" placeholder="Email" required>
-      <input type="number" name="phoneNumber" id="phoneNumber" placeholder="Phone Number" required>
-      <input type="password" name="password" id="password" placeholder="Password" required>
-      <input type="confirmPassword" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" required>
-      <button type="submit">LOGIN</button>
-      <p class="signup-link">Don’t have an account? <a href="/signup">Signup</a></p>
-    </form>
-
+  <form action="/signup" method="POST">
+    <h2>Signup</h2>
+    <input type="text" name="fullName" id="fullName" placeholder="Full Name" required>
+    <input type="text" name="email" id="email" placeholder="Email" required>
+    <input type="number" name="phoneNumber" id="phoneNumber" placeholder="Phone Number" required>
+    <input type="password" name="password" id="password" placeholder="Password" required>
+    <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password" required>
+    <button type="submit">SIGNUP</button>
+    <p class="signup-link">Don't have an account? <a href="/signup">Signup</a></p>
+  </form>
+  <script src="/"></script>
 </body>
 </html>
