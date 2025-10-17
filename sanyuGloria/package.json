@@ -1,0 +1,31 @@
+{
+  "name": "sanyugloria",
+  "version": "1.0.0",
+  "description": "CSE-25-07-ST-ASSESSMENT",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sanyu-Gloria22/CSE-25-07-ST-ASSESSMENT.git"
+  },
+  "author": "SANYU GLORIA",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sanyu-Gloria22/CSE-25-07-ST-ASSESSMENT/issues"
+  },
+  "homepage": "https://github.com/Sanyu-Gloria22/CSE-25-07-ST-ASSESSMENT#readme",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "local": "^0.3.3",
+    "mongoose": "^8.19.1",
+    "nodemon": "^3.1.10",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "pug": "^3.0.3"
+  }
+}
